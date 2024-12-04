@@ -38,14 +38,14 @@ class WatchDetailAV(APIView):
         serializer = WatchListSerializer(watchlist, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_304_NOT_MODIFIED)
             
     def delete(self,resquest,pk):
         watchlist = WatchList.objects.get(pk=pk)
         watchlist.delete()
-        return Response(status=status.HTTP_204)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class StreamPlatformAV(APIView):
     def get(self,request): 
@@ -57,9 +57,9 @@ class StreamPlatformAV(APIView):
         serializer = StreamPlatformSerailizer(data= request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors,status=status.HTTP_304_NOT_MODIFIED)
 
 class PlatformDetailAV(APIView):
 
@@ -80,10 +80,10 @@ class PlatformDetailAV(APIView):
         else:
             return Response(serializer.errors,status=status.HTTP_304_NOT_MODIFIED)
         
-    def delete(self,pk,request):
+    def delete(self,request,pk):
         platform = StreamPlatform.objects.get(pk=pk)
         platform.delete()
-        return Response({'message': 'Record Deleted'},status=status.HTTP_304_NOT_MODIFIED)
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 #---------------------------------Function Based Approach------------------------------
 """ This whole code uses function based approach which is good but we want to implement 
