@@ -4,7 +4,7 @@ from watchmate_api.models import WatchList, StreamPlatform
 
 # Model Serializer
 class WatchListSerializer(serializers.ModelSerializer):
-
+    
     class Meta:
         model = WatchList
         fields = '__all__'
@@ -12,10 +12,12 @@ class WatchListSerializer(serializers.ModelSerializer):
         # exclude = ['active']
 
 class StreamPlatformSerailizer(serializers.ModelSerializer):
-    # Watchlist = WatchListSerializer(many=True, read_only=True)
+    watchlist = WatchListSerializer(many=True, required=False, read_only=True)
     class Meta:
         model = StreamPlatform
         fields = '__all__'
+
+
 
 """ This model serailizer uses `Serializer` but now we'll use `ModelSerializer` which makes things much simpler"""
 # # Validator
