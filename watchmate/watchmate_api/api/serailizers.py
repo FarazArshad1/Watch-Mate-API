@@ -12,12 +12,10 @@ class WatchListSerializer(serializers.ModelSerializer):
         # exclude = ['active']
 
 class StreamPlatformSerailizer(serializers.ModelSerializer):
-    watchlist = WatchListSerializer(many=True, required=False, read_only=True)
+    watchlist = WatchListSerializer(many=True, read_only=True)
     class Meta:
         model = StreamPlatform
         fields = '__all__'
-
-
 
 """ This model serailizer uses `Serializer` but now we'll use `ModelSerializer` which makes things much simpler"""
 # # Validator
